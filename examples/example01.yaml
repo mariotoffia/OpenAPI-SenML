@@ -40,17 +40,10 @@ paths:
           content:
             application/senml+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SenMLRequestEntry'
+                $ref: '#/components/schemas/SenMLRequestJSON'
             application/senml+xml:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SenMLRequestEntry'
-                xml:
-                  name: senml
-                  namespace: 'urn:ietf:params:xml:ns:senml'
+                $ref: '#/components/schemas/SenMLRequestXML'
           required: true
         responses:
           200:
@@ -113,17 +106,10 @@ paths:
             content:
               application/senml+json:
                 schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/SenMLActuationResponseEntry'
+                  $ref: '#/components/schemas/SenMLActuationResponseJSON'
               application/senml+xml:
                 schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/SenMLActuationResponseEntry'
-                  xml:
-                    name: senml
-                    namespace: 'urn:ietf:params:xml:ns:senml'
+                  $ref: '#/components/schemas/SenMLActuationResponseXML'
           401:
             description: Missing authorization token
             content: {}
@@ -139,9 +125,37 @@ components:
       description: A client cookie if asynchronous result.
       schema:
         type: string
-  schemas:    
+  schemas:
+    SenMLRequestJSON:
+      type: array
+      items:
+        $ref: '../spec/protocol/senml/request-entry.yaml'
+    SenMLRequestXML:
+      type: object
+      properties:
+        senml:
+          type: array
+          items:
+            $ref: '../spec/protocol/senml/request-entry.yaml'
+      xml:
+        name: senml
+        namespace: 'urn:ietf:params:xml:ns:senml'
     SenMLRequestEntry:
       $ref: '../spec/protocol/senml/request-entry.yaml'
+    SenMLActuationResponseJSON:
+      type: array
+      items:
+        $ref: '../spec/protocol/senml/senml-actuation-response-entry.yaml'
+    SenMLActuationResponseXML:
+      type: object
+      properties:
+        senml:
+          type: array
+          items:
+            $ref: '../spec/protocol/senml/senml-actuation-response-entry.yaml'
+      xml:
+        name: senml
+        namespace: 'urn:ietf:params:xml:ns:senml'
     SenMLActuationResponseEntry:
       $ref: '../spec/protocol/senml/senml-actuation-response-entry.yaml'
     SenMLJSON:
