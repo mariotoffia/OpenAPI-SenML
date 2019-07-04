@@ -1,0 +1,10 @@
+#UpdateTime:
+type: number
+format: double
+example: 11
+description: Period of time in seconds that represents the maximum
+      time before this sensor will provide an updated reading for a
+      measurement.  Optional.  This can be used to detect the failure of
+      sensors or the communications path from the sensor.
+
+      CBOR Label is 7

@@ -1,0 +1,9 @@
+#BaseValue:
+type: number
+format: double
+example: '77.16'
+description: If the Base Value or Value is not present, the missing field(s) is 
+  considered to have a value of zero.  The Base Value and Value are added together 
+  to get the value of the measurement. 
+  
+  CBOR Label is -5

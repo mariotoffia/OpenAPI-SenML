@@ -1,0 +1,6 @@
+#BaseSum:
+type: number
+format: double
+example: 77.12
+description: A base sum is added to the sum found in an entry, similar to Base Time. 
+  CBOR Label is -6

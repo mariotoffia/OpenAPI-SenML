@@ -1,0 +1,4 @@
+#BaseUnit:
+$ref: 'unit.yaml'
+description: If the Record has no Unit, the Base Unit is used as the Unit. 
+  CBOR Label is -4

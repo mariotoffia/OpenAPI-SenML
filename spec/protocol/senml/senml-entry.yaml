@@ -1,0 +1,138 @@
+#SenMLEntry:
+type: object
+description: A entry of [SenML](https://tools.ietf.org/html/rfc8428) data. 
+   Connecting sensors to the Internet is not new, and there have been
+   many protocols designed to facilitate it.  This specification defines
+   a format and media types for carrying simple sensor information in
+   protocols such as HTTP [RFC7230] or CoAP [RFC7252].  The SenML format
+   is designed so that processors with very limited capabilities could
+   easily encode a sensor measurement into the media type, while at the
+   same time, a server parsing the data could collect a large number of
+   sensor measurements in a relatively efficient manner.  SenML can be
+   used for a variety of data flow models, most notably data feeds
+   pushed from a sensor to a collector, and for the web resource model
+   where the sensor data is requested as a resource representation
+   (e.g., "GET /sensor/temperature").
+
+   There are many types of more complex measurements and measurements
+   that this media type would not be suitable for.  SenML strikes a
+   balance between having some information about the sensor carried with
+   the sensor data so that the data is self-describing, but it also
+   tries to make that a fairly minimal set of auxiliary information for
+   efficiency reasons.  Other information about the sensor can be
+   discovered by other methods such as using the Constrained RESTful
+   Environments (CoRE) Link Format [RFC6690].
+
+   SenML is defined by a data model for measurements and simple metadata
+   about measurements and devices.  The data is structured as a single
+   array that contains a series of SenML Records that can each contain
+   fields such as a unique identifier for the sensor, the time the
+   measurement was made, the unit the measurement is in, and the current
+   value of the sensor.  Serializations for this data model are defined
+   for JSON [RFC8259], CBOR [RFC7049], XML [W3C.REC-xml-20081126], and
+   Efficient XML Interchange (EXI) [W3C.REC-exi-20140211].
+
+   For example, the following shows a measurement from a temperature
+   gauge encoded in the JSON syntax.
+
+   [
+     {"n":"urn:dev:ow:10e2073a01080063","u":"Cel","v":23.1}
+   ]
+
+   In the example above, the array has a single SenML Record with a
+   measurement for a sensor named "urn:dev:ow:10e2073a01080063" with a
+   current value of 23.1 degrees Celsius.
+
+   
+   The design goal is to be able to send simple sensor measurements in
+   small packets from large numbers of constrained devices.  Keeping the
+   total size of the payload small makes it easy to also use SenML in
+   constrained networks, e.g., in an IPv6 over Low-Power Wireless
+   Personal Area Network (6LoWPAN) [RFC4944].  It is always difficult to
+   define what small code is, but there is a desire to be able to
+   implement this in roughly 1 KB of flash on an 8-bit microprocessor.
+   Experience with power meters and other large-scale deployments has
+   indicated that the solution needs to support allowing multiple
+   measurements to be batched into a single HTTP or CoAP request.  This
+   "batch" upload capability allows the server side to efficiently
+   support a large number of devices.  It also conveniently supports
+   batch transfers from proxies and storage devices, even in situations
+   where the sensor itself sends just a single data item at a time.  The
+   multiple measurements could be from multiple related sensors or from
+   the same sensor but at different times.
+
+   The basic design is an array with a series of measurements.  The
+   following example shows two measurements made at different times.
+   The value of a measurement is given by the "v" field, the time of a
+   measurement is in the "t" field, the "n" field has a unique sensor
+   name, and the unit of the measurement is carried in the "u" field.
+
+   [
+     {"n":"urn:dev:ow:10e2073a01080063","u":"Cel","t":1.276020076e+09,
+      "v":23.5},
+     {"n":"urn:dev:ow:10e2073a01080063","u":"Cel","t":1.276020091e+09,
+      "v":23.6}
+   ]
+
+   To keep the messages small, it does not make sense to repeat the "n"
+   field in each SenML Record, so there is a concept of a Base Name,
+   which is simply a string that is prepended to the Name field of all
+   elements in that Record and any Records that follow it.  So, a more
+   compact form of the example above is the following.
+
+   [
+     {"bn":"urn:dev:ow:10e2073a01080063","u":"Cel","t":1.276020076e+09,
+      "v":23.5},
+     {"u":"Cel","t":1.276020091e+09,
+      "v":23.6}
+   ]
+
+   In the above example, the Base Name is in the "bn" field, and the "n"
+   fields in each Record are empty strings, so they are omitted.
+
+   Some devices have accurate time while others do not, so SenML
+   supports absolute and relative times.  Time is represented in
+   floating point as seconds.  Values greater than or equal to 2**28
+   represent an absolute time relative to the Unix epoch.  Values less
+   than 2**28 represent time relative to the current time.
+
+   A simple sensor with no absolute wall-clock time might take a
+   measurement every second, batch up 60 of them, and then send the
+   batch to a server.  It would include the relative time each
+   measurement was made compared to the time the batch was sent in each
+   SenML Record.  If the server has accurate time based on, e.g., the
+   Network Time Protocol (NTP), it may use the time it received the data
+   and the relative offset to replace the times in the SenML with
+   absolute times before saving the SenML information in a document
+   database.
+properties:
+  bn:
+    $ref: 'labels/base-name.yaml'
+  bt:
+    $ref: 'labels/base-time.yaml'
+  bu:
+    $ref: 'labels/base-unit.yaml'
+  bv:
+    $ref: 'labels/base-value.yaml'
+  bs:
+    $ref: 'labels/base-sum.yaml'
+  bver:
+    $ref: 'labels/base-version.yaml'
+  n:  
+    $ref: 'labels/name.yaml'
+  u:
+    $ref: 'labels/unit.yaml'
+  v:
+    $ref: 'labels/value.yaml'
+  vs:
+    $ref: 'labels/string-value.yaml'
+  vb:
+    $ref: 'labels/boolean-value.yaml'
+  vd:
+    $ref: 'labels/data-value.yaml'
+  s:
+    $ref: 'labels/sum.yaml'
+  t:
+    $ref: 'labels/time.yaml'
+  ut:
+    $ref: 'labels/update-time.yaml'

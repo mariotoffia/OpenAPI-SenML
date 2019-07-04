@@ -1,0 +1,376 @@
+#Unit:
+type: string
+example: 1/min
+enum:
+  - m
+  - kg
+  - g
+  - s
+  - A
+  - K
+  - cd
+  - mol
+  - Hz
+  - rad
+  - sr
+  - N
+  - Pa
+  - J
+  - W
+  - C
+  - V
+  - F
+  - Ohm
+  - S
+  - Wb
+  - T
+  - H
+  - Cel
+  - lm
+  - lx
+  - Bq
+  - Gy
+  - Sv
+  - kat
+  - m2
+  - m3
+  - l
+  - m/s
+  - m/s2
+  - m3/s
+  - l/s
+  - W/m2
+  - cd/m2
+  - bit
+  - bit/s
+  - lat
+  - lon
+  - pH
+  - dB
+  - dBW
+  - Bspl
+  - count
+  - /
+  - '%'
+  - '%RH'
+  - '%EL'
+  - EL
+  - 1/s
+  - 1/min
+  - beat/min
+  - beats
+  - S/m
+description: |
+  Standard units from SenML specification, [chapter 12.1](https://tools.ietf.org/html/rfc8428#section-12.1).
+  <table>
+    <tr>
+      <td>Symbol</td>
+      <td>Description</td>
+      <td>Type</td>
+    </tr>
+    <tr>
+      <td>m</td>
+      <td>meter</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>kg</td>
+      <td>kilogram</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>g</td>
+      <td>gram</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>s</td>
+      <td>second</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>ampere</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>K</td>
+      <td>kelvin</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>cd</td>
+      <td>candela</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>mol</td>
+      <td>mole</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Hz</td>
+      <td>hertz</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>rad</td>
+      <td>radian</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>sr</td>
+      <td>steradian</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>N</td>
+      <td>newton</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Pa</td>
+      <td>pascal</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>J</td>
+      <td>joule</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>W</td>
+      <td>watt</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>coulomb</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>V</td>
+      <td>volt</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td>farad</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Ohm</td>
+      <td>ohm</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>siemens</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Wb</td>
+      <td>weber</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td>tesla</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>H</td>
+      <td>henry</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Cel</td>
+      <td>degrees Celsius</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>lm</td>
+      <td>lumen</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>lx</td>
+      <td>lux</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Bq</td>
+      <td>becquerel</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Gy</td>
+      <td>gray</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Sv</td>
+      <td>sievert</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>kat</td>
+      <td>katal</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>m2</td>
+      <td>square meter (area)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>m3</td>
+      <td>cubic meter (volume)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>l</td>
+      <td>liter (volume)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>m/s</td>
+      <td>meter per second (velocity)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>m/s2</td>
+      <td>meter per square second (acceleration)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>m3/s</td>
+      <td>cubic meter per second (flow rate)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>l/s</td>
+      <td>liter per second (flow rate)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>W/m2</td>
+      <td>watt per square meter (irradiance)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>cd/m2</td>
+      <td>candela per square meter (luminance)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>bit</td>
+      <td>bit (information content)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>bit/s</td>
+      <td>bit per second (data rate)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>lat</td>
+      <td>degrees latitude (Note 1)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>lon</td>
+      <td>degrees longitude (Note 1)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>pH</td>
+      <td>pH value (acidity; logarithmic quantity)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>dB</td>
+      <td>decibel (logarithmic quantity)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>dBW</td>
+      <td>decibel relative to 1 W (power level)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>Bspl</td>
+      <td>bel (sound pressure level; logarithmic quantity)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>count</td>
+      <td>1 (counter value)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>/</td>
+      <td>1 (ratio, e.g., value of a switch; Note 2)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>%</td>
+      <td>1 (ratio, e.g., value of a switch; Note 2)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>%RH</td>
+      <td>percentage (relative humidity)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>%EL</td>
+      <td>percentage (remaining batter energy level)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>EL</td>
+      <td>seconds (remaining battery energy level)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>1/s</td>
+      <td>1 per second (event rate)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>1/min</td>
+      <td>1 per minute (event rate, "rpm")</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>beat/min</td>
+      <td>1 per minute (heart rate in beats per minute)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>beats</td>
+      <td>1 (cumulative number of heart beats)</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>S/m</td>
+      <td>siemens per meter (conductivity)</td>
+      <td>float</td>
+    </tr>
+  </table>
+  <ol>
+    <li>
+      Note 1 - Assumed to be in World Geodetic System 1984 (WGS84), unless another reference frame is known for the sensor
+    </li>
+    <li>
+      Note 2 - A value of 0.0 indicates the switch is off, 1.0 indicates
+      on, and 0.5 indicates half on.  The preferred name of this unit is
+      "/".  For historical reasons, the name "%" is also provided for
+      the same unit, but note that while that name strongly suggests a
+      percentage (0..100), it is NOT a percentage but the absolute
+      ratio!
+    </li>
+  </ol>
+
+  CBOR Label is 1 (u field)

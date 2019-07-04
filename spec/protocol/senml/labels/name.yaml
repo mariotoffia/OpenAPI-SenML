@@ -1,0 +1,38 @@
+#Name:
+type: string
+example: 'fanspeed'
+description: Name of the sensor / actuator or actuator parameter.
+   The Name value is concatenated to the Base Name value to yield the
+   name of the sensor.  The resulting concatenated name needs to
+   uniquely identify and differentiate the sensor from all others.  The
+   concatenated name MUST consist only of characters out of the set "A"
+   to "Z", "a" to "z", and "0" to "9", as well as "-", ":", ".", "/",
+   and "_"; furthermore, it MUST start with a character out of the set
+   "A" to "Z", "a" to "z", or "0" to "9".  This restricted character set
+   was chosen so that concatenated names can be used directly within
+   various URI schemes (including segments of an HTTP path with no
+   special encoding; note that a name that contains "/" characters maps
+   into multiple URI path segments) and can be used directly in many
+   databases and analytic systems.  [RFC5952] contains advice on
+   encoding an IPv6 address in a name.  See Section 14 for privacy
+   considerations that apply to the use of long-term stable unique
+   identifiers.
+
+   Although it is RECOMMENDED that concatenated names be represented as
+   URIs [RFC3986] or URNs [RFC8141], the restricted character set
+   specified above puts strict limits on the URI schemes and URN
+   namespaces that can be used.  As a result, implementers need to take
+   care in choosing the naming scheme for concatenated names, because
+   such names both need to be unique and need to conform to the
+   restricted character set.  One approach is to include a bit string
+   that has guaranteed uniqueness (such as a 1-wire address [AN1796]).
+   Some of the examples within this document use the device URN
+   namespace as specified in [DEVICE-URN].  Universally Unique
+   Identifiers (UUIDs) [RFC4122] are another way to generate a unique
+   name.  However, the restricted character set does not allow the use
+   of many URI schemes, such as the "tag" scheme [RFC4151] and the "ni"
+   scheme [RFC6920], in names as such.  The use of URIs with characters
+   incompatible with this set and possible mapping rules between the two
+   are outside the scope of the present document.
+
+   CBOR Label is 0

@@ -1,0 +1,24 @@
+#RequestEntry:
+type: object
+description: A single entry to adress one sensor or data element in a request or subscription.
+  It follows the SenML semantics so a `bn` may be provided to prefix the `n` element and so on.
+  Since this is a request entry all parameters are criterion to enable sensor readings and
+  narrow the resultset. All are optional except for the `n` element. It is also possible to
+  use this request to query historical data using a time reference acting as from time.
+
+  This request should use the SenML defined mimetypes such as `application/senml+json`.
+properties:
+  bn:
+    $ref: 'labels/base-name.yaml'
+  bt:
+    $ref: 'labels/base-time.yaml'
+  bver:
+    $ref: 'labels/base-version.yaml'
+  n:  
+    $ref: 'labels/name.yaml'
+  t:
+    $ref: 'labels/time.yaml'
+  ut:
+    $ref: 'labels/update-time.yaml'  
+required:
+  - n

@@ -1,0 +1,9 @@
+#Sum:
+type: number
+format: double
+example: 177.92
+description: Integrated sum of the values over time.  Optional.  This field
+  is in the unit specified in the Unit value multiplied by seconds.
+  For historical reasons, it is named "sum" instead of "integral".
+
+  CBOR Label is 5

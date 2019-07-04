@@ -1,0 +1,7 @@
+#BaseName:
+type: string
+description: This is a prefix on Name (`n` field) in a payload. This is used to shorten
+  the name field and thus take less space. 
+  
+  CBOR Label is -2
+example: 'urn:dev:ow:10e2073a01080063:'

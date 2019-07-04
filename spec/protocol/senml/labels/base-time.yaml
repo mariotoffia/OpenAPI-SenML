@@ -1,0 +1,8 @@
+#BaseTime:
+type: number
+format: double
+example: 1.320078429e+09
+description: The Base Time and Time values are added together to get a value representing the time of
+  measurement. 
+  
+  CBOR Label is -3

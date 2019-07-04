@@ -1,0 +1,8 @@
+#BaseVersion:
+type: integer
+format: int32
+example: 5
+description: Version number of the media type format.  This field is an 
+  optional positive integer and defaults to 10 if not present. 
+  
+  CBOR Label is -1
