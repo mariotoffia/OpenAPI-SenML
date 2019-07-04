@@ -22,3 +22,5 @@ properties:
     $ref: 'labels/update-time.yaml'  
 required:
   - n
+xml:
+  name: senml

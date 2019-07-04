@@ -1,0 +1,34 @@
+#SenMLActuationResponseEntry:
+type: object
+description: A response entry for a SenML actuation.
+  It responds using SenML syntax. Where each sensor or
+  SenML parameter entry is reflected back with a
+  [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
+
+  The client may check each individual to get the result
+  of the actuation. The optional `t`ime can be used to
+  determin when the actuation did occur. It may have one or more
+  virtual sensors if e.g. client cookie is provided then
+  it is returned as a value under the name `urn:senml:cc`
+  and the property `vs` is set as the input provided client
+  cookie.
+
+  This is for asynchrnonous APIs where responses are either polled
+  or recieved asynchrnously e.g. via `MQTT` or `WebSocket`. Other 
+  means of providing this is allowed such as a `HTTP` header or alike.
+properties:
+  n:  
+    $ref: 'labels/name.yaml'
+  v:
+    $ref: 'labels/value.yaml'
+  bn:
+    $ref: 'labels/base-name.yaml'
+  bver:
+    $ref: 'labels/base-version.yaml'
+  t:
+    $ref: 'labels/time.yaml'
+required:
+  - n
+  - v
+xml:
+  name: senml

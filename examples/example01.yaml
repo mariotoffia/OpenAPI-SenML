@@ -27,7 +27,9 @@ paths:
         tags:
           - operational
         summary: Gets SenML formatted data
-        description: Gets a set of sensor data
+        description: Gets a set of sensor data. If the data is not available or caller do not have the permission,
+          it will be automatically filtered out in the result set. However, if all are filtered out a 404 HTTP error
+          code is returned.
         operationId: getOperationalData
         requestBody:
           description: 'The sensors to get the data from e.g retrieving voltage, fanspeed, and power at the same time can look like this:
@@ -41,10 +43,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SenMLRequestEntry'
+            application/senml+xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SenMLRequestEntry'
+                xml:
+                  name: senml
+                  namespace: 'urn:ietf:params:xml:ns:senml'
           required: true
         responses:
           200:
-            description: 'One or more SenML entries e.g.
+            description: 'One or more SenML entries (missing / not authorized are filtered out) e.g.
               <ul style="list-style-type:none">
                 <li>[{"bn": "urn:dev:ow:10e2073a0108001:","bt": 1276020076.001, "bu": "A", "bver": 5, "n": "voltage", "u" "V", "v": 120.1},</li>
                 <li>{"n": "current", "t": -5, "v": 1.2}, {"n": "current", "t": -4, "v": 1.3},</li>
@@ -54,17 +64,18 @@ paths:
             content:
               application/senml+json:
                 schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/SenMLEntry'
+                  $ref: '#/components/schemas/SenMLJSON'
+              application/senml+xml:
+                schema:
+                  $ref: '#/components/schemas/SenMLXML'
           401:
-            description: Missing  authorization token
+            description: Missing authorization token
             content: {}
           403:
-            description: Not allowed to perform this oeration
+            description: Not allowed to perform this operation
             content: {}
           404:
-            description: All sensors where not found.
+            description: All sensors & parametres was not found.
             content: {}
       post:
         tags:
@@ -76,29 +87,48 @@ paths:
           description: 'The actuators and data to set. For power on a device for 60 seconds
             can look like this:
             <ul style="list-style-type:none">
-              <li>[{"bn": "urn:dev:ow:10e2073a0108001:",  "n": "power", "v": true}, </li>
-              <li>{ "n": "ttl", "v": 60 }]</li>
+              <li>[{"bn": "urn:dev:ow:10e2073a0108001:",  "n": "power", "vb": true}, </li>
+              <li>{"n": "ttl", "v": 60 }]</li>
             </ul>'
           content:
             application/senml+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SenMLEntry'
+                $ref: '#/components/schemas/SenMLJSON'
+            application/senml+xml:
+              schema:
+                $ref: '#/components/schemas/SenMLXML'
           required: true
         responses:
           200:
-            description: A set of response codes, it is neccesary to go through each entry
-              to get the result of the operation. Each indiviudal one may have failed.
+            description: 'A set of response codes, it is neccesary to go through each entry
+              to get the result of the operation. Each indiviudal one may have failed. For the
+              above example e.g. this response could be presented:
+              
+              [{"bn": "urn:dev:ow:10e2073a0108001:",  "n": "power", "v": "200"},
+              { "n": "ttl", "v": "403" }].
+              
+              This means that the power was actuated properly but the caller was not allowed
+              to set the `ttl` property and therefore, in this example, the power was set to 
+              on but no timeout was set.'
             content:
-              application/json:
+              application/senml+json:
                 schema:
-                  $ref: '#/components/schemas/SenMLActuationResponse'
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SenMLActuationResponseEntry'
+              application/senml+xml:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SenMLActuationResponseEntry'
+                  xml:
+                    name: senml
+                    namespace: 'urn:ietf:params:xml:ns:senml'
           401:
-            description: Missing device authorization token
+            description: Missing authorization token
             content: {}
           403:
-            description: Not allowed to perform this oeration
+            description: Not allowed to perform this operation
             content: {}
 components:
   parameters:
@@ -112,7 +142,21 @@ components:
   schemas:    
     SenMLRequestEntry:
       $ref: '../spec/protocol/senml/request-entry.yaml'
-    SenMLActuationResponse:
-      $ref: '../spec/protocol/senml/senml-actuation-response.yaml'
+    SenMLActuationResponseEntry:
+      $ref: '../spec/protocol/senml/senml-actuation-response-entry.yaml'
+    SenMLJSON:
+      type: array
+      items:
+        $ref: '#/components/schemas/SenMLEntry'
+    SenMLXML:
+      type: object
+      properties:
+        senml:
+          type: array
+          items:
+            $ref: '#/components/schemas/SenMLEntry'
+      xml:
+        name: senml
+        namespace: 'urn:ietf:params:xml:ns:senml'
     SenMLEntry:
       $ref: '../spec/protocol/senml/senml-entry.yaml'

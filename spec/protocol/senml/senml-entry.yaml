@@ -105,6 +105,26 @@ description: A entry of [SenML](https://tools.ietf.org/html/rfc8428) data.
    and the relative offset to replace the times in the SenML with
    absolute times before saving the SenML information in a document
    database.
+   
+   <p>
+   Virtual SenML values is provided under the base name `urn:senml:cc`.
+   Recievers may choose to ignore or have other transport mechanism for
+   those SenML value. For example HTTP the AT is transported in the
+   `Authorization` HTTP header instead.
+   <ul style="list-style-type:none">
+    <li>
+      cc - where the client cookie is either provided or returned in a
+      request operation. It transported in the `vs` property.
+    </li>
+    <li>
+      at - This is a OAuth 2 access token or Open Id Connect token that
+        authorizes the request. This is common in protocols that cannot bear a
+        header. When it is a OIDC token, the request is authorized and authenticated
+        at the same time where as the standard OAuth 2 AT is just for authorization.
+        It transported in the `vs` property.
+    </li>
+   </ul>
+   </p>
 properties:
   bn:
     $ref: 'labels/base-name.yaml'
@@ -136,3 +156,5 @@ properties:
     $ref: 'labels/time.yaml'
   ut:
     $ref: 'labels/update-time.yaml'
+xml:
+  name: senml
