@@ -129,14 +129,14 @@ components:
     SenMLRequestJSON:
       type: array
       items:
-        $ref: '../spec/protocol/senml/request-entry.yaml'
+        $ref: '#/components/schemas/SenMLRequestEntry'
     SenMLRequestXML:
       type: object
       properties:
         senml:
           type: array
           items:
-            $ref: '../spec/protocol/senml/request-entry.yaml'
+            $ref: '#/components/schemas/SenMLRequestEntry'
       xml:
         name: senml
         namespace: 'urn:ietf:params:xml:ns:senml'
@@ -145,14 +145,14 @@ components:
     SenMLActuationResponseJSON:
       type: array
       items:
-        $ref: '../spec/protocol/senml/senml-actuation-response-entry.yaml'
+        $ref: '#/components/schemas/SenMLActuationResponseEntry'
     SenMLActuationResponseXML:
       type: object
       properties:
         senml:
           type: array
           items:
-            $ref: '../spec/protocol/senml/senml-actuation-response-entry.yaml'
+            $ref: '#/components/schemas/SenMLActuationResponseEntry'
       xml:
         name: senml
         namespace: 'urn:ietf:params:xml:ns:senml'
