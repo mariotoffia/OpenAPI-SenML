@@ -11,7 +11,7 @@ info:
   license:
     name: Apache 2.0
     url: https://github.com/mariotoffia/OpenAPI-SenML/blob/master/LICENSE
-  version: 2.0.0
+  version: 1.0.0
 externalDocs:
   description: Find out more about SenML [RFC 8428](https://tools.ietf.org/html/rfc8428)
   url: https://tools.ietf.org/html/rfc8428

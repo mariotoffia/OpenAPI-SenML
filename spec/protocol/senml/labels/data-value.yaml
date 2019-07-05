@@ -1,32 +1,33 @@
 #Value:
 type: string
 example: aGVqIHDDpSBkaWc=
-description: If only one of the Base Sum or Sum value is present, the missing
+description: |
+   <p>
+   If only one of the Base Sum or Sum value is present, the missing
    field is considered to have a value of zero.  The Base Sum and Sum
    values are added together to get the sum of measurement.  If neither
    the Base Sum nor the Sum is present, then the measurement does not
-   have a Sum value.
-
+   have a Sum value.</p>
+   <p>
    If the Base Value or Value is not present, the missing field(s) is
    considered to have a value of zero.  The Base Value and Value are
-   added together to get the value of the measurement.
-
+   added together to get the value of the measurement.</p>
+   <p>
    Representing the statistical characteristics of measurements, such as
    accuracy, can be very complex.  Future specification may add new
    fields to provide better information about the statistical properties
-   of the measurement.
-
+   of the measurement.</p>
+   <p>
    In summary, the structure of a SenML Record is laid out to support a
    single measurement per Record.  If multiple data values are measured
    at the same time (e.g., air pressure and altitude), they are best
    kept as separate Records linked through their Time value; this is
    even true when one of the data values is more "meta" than others
    (e.g., describes a condition that influences other measurements at
-   the same time).
-
+   the same time).</p>
+   <p>
    Data Value is a base64-encoded string with the URL-safe alphabet
    as defined in Section 5 of [RFC4648](https://tools.ietf.org/html/rfc4648#section-5), 
    with padding omitted.  (In CBOR, the octets in the Data Value are 
-   encoded using a definite-length byte string, major type 2.)
-   
-   CBOR Label is 8
+   encoded using a definite-length byte string, major type 2.)</p>
+   <p><em>CBOR Label is 8</em></p>

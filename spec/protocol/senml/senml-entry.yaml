@@ -1,10 +1,12 @@
 #SenMLEntry:
 type: object
 description: A entry of [SenML](https://tools.ietf.org/html/rfc8428) data. 
+   <p>
    Connecting sensors to the Internet is not new, and there have been
    many protocols designed to facilitate it.  This specification defines
    a format and media types for carrying simple sensor information in
-   protocols such as HTTP [RFC7230] or CoAP [RFC7252].  The SenML format
+   protocols such as HTTP [RFC7230](https://tools.ietf.org/html/rfc7230)
+   or CoAP [RFC7252](https://tools.ietf.org/html/rfc7252).  The SenML format
    is designed so that processors with very limited capabilities could
    easily encode a sensor measurement into the media type, while at the
    same time, a server parsing the data could collect a large number of
@@ -12,8 +14,8 @@ description: A entry of [SenML](https://tools.ietf.org/html/rfc8428) data.
    used for a variety of data flow models, most notably data feeds
    pushed from a sensor to a collector, and for the web resource model
    where the sensor data is requested as a resource representation
-   (e.g., "GET /sensor/temperature").
-
+   (e.g., "GET /sensor/temperature").</p>
+   <p>
    There are many types of more complex measurements and measurements
    that this media type would not be suitable for.  SenML strikes a
    balance between having some information about the sensor carried with
@@ -21,29 +23,31 @@ description: A entry of [SenML](https://tools.ietf.org/html/rfc8428) data.
    tries to make that a fairly minimal set of auxiliary information for
    efficiency reasons.  Other information about the sensor can be
    discovered by other methods such as using the Constrained RESTful
-   Environments (CoRE) Link Format [RFC6690].
-
+   Environments (CoRE) Link Format [RFC6690](https://tools.ietf.org/html/rfc6690).
+   </p><p>
    SenML is defined by a data model for measurements and simple metadata
    about measurements and devices.  The data is structured as a single
    array that contains a series of SenML Records that can each contain
    fields such as a unique identifier for the sensor, the time the
    measurement was made, the unit the measurement is in, and the current
    value of the sensor.  Serializations for this data model are defined
-   for JSON [RFC8259], CBOR [RFC7049], XML [W3C.REC-xml-20081126], and
-   Efficient XML Interchange (EXI) [W3C.REC-exi-20140211].
-
+   for JSON [RFC8259](https://tools.ietf.org/html/rfc8259), 
+   CBOR [RFC7049](https://tools.ietf.org/html/rfc7049), 
+   XML [W3C.REC-xml-20081126](https://tools.ietf.org/html/rfc8428#ref-W3C.REC-xml-20081126), 
+   and Efficient XML Interchange 
+   (EXI) [W3C.REC-exi-20140211](https://tools.ietf.org/html/rfc8428#ref-W3C.REC-exi-20140211).
+   </p><p>
    For example, the following shows a measurement from a temperature
-   gauge encoded in the JSON syntax.
-
+   gauge encoded in the JSON syntax.</p>
+   <p><ul style="list-style-type:none"><li>
    [
      {"n":"urn:dev:ow:10e2073a01080063","u":"Cel","v":23.1}
-   ]
-
+   ]</li></ul></p>
+   <p>
    In the example above, the array has a single SenML Record with a
    measurement for a sensor named "urn:dev:ow:10e2073a01080063" with a
-   current value of 23.1 degrees Celsius.
-
-   
+   current value of 23.1 degrees Celsius.</p>
+   <p>   
    The design goal is to be able to send simple sensor measurements in
    small packets from large numbers of constrained devices.  Keeping the
    total size of the payload small makes it easy to also use SenML in
@@ -59,43 +63,43 @@ description: A entry of [SenML](https://tools.ietf.org/html/rfc8428) data.
    batch transfers from proxies and storage devices, even in situations
    where the sensor itself sends just a single data item at a time.  The
    multiple measurements could be from multiple related sensors or from
-   the same sensor but at different times.
-
+   the same sensor but at different times.</p>
+   <p>
    The basic design is an array with a series of measurements.  The
    following example shows two measurements made at different times.
    The value of a measurement is given by the "v" field, the time of a
    measurement is in the "t" field, the "n" field has a unique sensor
-   name, and the unit of the measurement is carried in the "u" field.
-
+   name, and the unit of the measurement is carried in the "u" field.</p>
+   <p><ul style="list-style-type:none"><li>
    [
      {"n":"urn:dev:ow:10e2073a01080063","u":"Cel","t":1.276020076e+09,
       "v":23.5},
      {"n":"urn:dev:ow:10e2073a01080063","u":"Cel","t":1.276020091e+09,
       "v":23.6}
-   ]
-
+   ]</li></ul></p>
+   <p>
    To keep the messages small, it does not make sense to repeat the "n"
    field in each SenML Record, so there is a concept of a Base Name,
    which is simply a string that is prepended to the Name field of all
    elements in that Record and any Records that follow it.  So, a more
-   compact form of the example above is the following.
-
+   compact form of the example above is the following.</p>
+   <p><ul style="list-style-type:none"><li>
    [
      {"bn":"urn:dev:ow:10e2073a01080063","u":"Cel","t":1.276020076e+09,
       "v":23.5},
      {"u":"Cel","t":1.276020091e+09,
       "v":23.6}
-   ]
-
+   ]</li></ul></p>
+   <p>
    In the above example, the Base Name is in the "bn" field, and the "n"
-   fields in each Record are empty strings, so they are omitted.
-
+   fields in each Record are empty strings, so they are omitted.</p>
+   <p>
    Some devices have accurate time while others do not, so SenML
    supports absolute and relative times.  Time is represented in
    floating point as seconds.  Values greater than or equal to 2**28
    represent an absolute time relative to the Unix epoch.  Values less
-   than 2**28 represent time relative to the current time.
-
+   than 2**28 represent time relative to the current time.</p>
+   <p>
    A simple sensor with no absolute wall-clock time might take a
    measurement every second, batch up 60 of them, and then send the
    batch to a server.  It would include the relative time each
@@ -104,8 +108,7 @@ description: A entry of [SenML](https://tools.ietf.org/html/rfc8428) data.
    Network Time Protocol (NTP), it may use the time it received the data
    and the relative offset to replace the times in the SenML with
    absolute times before saving the SenML information in a document
-   database.
-   
+   database.</p>   
    <p>
    Virtual SenML values is provided under the base name `urn:senml:cc`.
    Recievers may choose to ignore or have other transport mechanism for
