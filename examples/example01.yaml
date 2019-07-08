@@ -22,8 +22,8 @@ tags:
     description: RFC 8428
     url: https://tools.ietf.org/html/rfc8428
 paths:
-  /operational:
-      get:
+  /operational/get-data:
+      post:
         tags:
           - operational
         summary: Gets SenML formatted data
@@ -70,6 +70,7 @@ paths:
           404:
             description: All sensors & parametres was not found.
             content: {}
+  /operational/set-data:
       post:
         tags:
           - operational
